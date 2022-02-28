@@ -1,0 +1,21 @@
+﻿@model BaseGenreViewModel
+
+
+@if(Model.Errors.Count() > 0)
+{
+	@foreach(var error in Model.Errors)
+	{
+		<div class="text-danger">@error</div>
+	}
+}
+else
+{
+	<h1>Genre info:</h1>
+	<div class="card">
+	<div class="card-body">
+		<div class="card-title">@Model.Name</div>
+	</div>
+	</div>
+}
+
+
