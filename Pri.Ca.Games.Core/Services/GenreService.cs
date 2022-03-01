@@ -13,16 +13,16 @@ namespace Pri.Ca.Games.Core.Services
 {
     public class GenreService : IGenreService
     {
-        private readonly IGenreRepository _genreRepository;
+        private readonly IRepository<Genre> _genreRepository;
 
-        public GenreService(IGenreRepository genreRepository)
+        public GenreService(IRepository<Genre> genreRepository)
         {
             _genreRepository = genreRepository;
         }
         public async Task<GenreResultModel> GetGenresAsync()
         {
             //perform the checks
-            var genres = await _genreRepository.GetGenresAsync();
+            var genres = await _genreRepository.GetAllAsync();
             GenreResultModel genreResultModel = new GenreResultModel();
 
             if (genres == null || genres.Count() == 0)
@@ -51,7 +51,7 @@ namespace Pri.Ca.Games.Core.Services
                 genreResultModel.IsSuccess = false;
                 return genreResultModel;
             }
-            var genre = await _genreRepository.GetGenreByIdAsync(id);
+            var genre = await _genreRepository.GetByIdAsync(id);
             if(genre == null)
             {
                 genreResultModel.ValidationErrors = new List<ValidationResult>

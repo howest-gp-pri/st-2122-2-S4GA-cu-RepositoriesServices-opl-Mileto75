@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pri.Ca.Games.Core.Entities;
 using Pri.Ca.Games.Core.Interfaces.Repositories;
 using Pri.Ca.Games.Core.Interfaces.Services;
 using Pri.Ca.Games.Core.Services;
@@ -33,8 +34,10 @@ namespace Pri.Ca.Games.Web
             services.AddDbContext<ApplicationDbContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("GamesDb")));
             //register repository classes
-            services.AddScoped<IGameRepository, GameRepository>();
-            services.AddScoped<IGenreRepository, GenreRepository>();
+            //services.AddScoped<IGameRepository, GameRepository>();
+            //services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IRepository<Game>,GenericGameRepository>();
+            services.AddScoped<IRepository<Genre>,GenericGenreRepository>();
             //register the service classes
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<IGenreService, GenreService>();

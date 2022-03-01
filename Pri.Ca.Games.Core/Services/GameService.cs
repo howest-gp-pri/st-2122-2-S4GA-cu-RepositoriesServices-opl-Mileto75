@@ -13,9 +13,10 @@ namespace Pri.Ca.Games.Core.Services
 {
     public class GameService : IGameService
     {
-        private readonly IGameRepository _gameRepository;
+        //private readonly IGameRepository _gameRepository;
+        private readonly IRepository<Game> _gameRepository;
 
-        public GameService(IGameRepository gameRepository)
+        public GameService(IRepository<Game> gameRepository)
         {
             _gameRepository = gameRepository;
         }
@@ -32,7 +33,7 @@ namespace Pri.Ca.Games.Core.Services
             }
 
             //get the game
-            var game = await _gameRepository.GetGameByIdAsync(id);
+            var game = await _gameRepository.GetByIdAsync(id);
             //perform null check
             if(game == null)
             {
@@ -51,7 +52,7 @@ namespace Pri.Ca.Games.Core.Services
 
         public async Task<GameResultModel> GetGamesAsync()
         {
-            var games = await _gameRepository.GetGamesAsync();
+            var games = await _gameRepository.GetAllAsync();
             var gameResultModel = new GameResultModel();
             gameResultModel.IsSuccess = true;
             //check for games
